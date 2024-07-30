@@ -7,6 +7,7 @@ import {
   input,
   output,
 } from '@angular/core';
+import{type User} from './user.model'
 /* type User = {
    
   id: string,
@@ -14,13 +15,7 @@ import {
   name: string,
 } */
 
-interface User {
 
- 
-  id: string,
-  avatar: string,
-  name: string,
-}
 
 @Component({
   selector: 'app-user',
@@ -34,7 +29,7 @@ export class UserComponent {
 
   @Input({required:true}) user!: User;
   
-
+@Input({required:true}) selected!: boolean;
   @Output() select = new EventEmitter<string>();
 
 
@@ -44,7 +39,9 @@ export class UserComponent {
   
   onSelectedUser() {
     this.select.emit(this.user.id);
+    
   }
+
 }
 
 

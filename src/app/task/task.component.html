@@ -1,5 +1,31 @@
-<section id="tasks">
-  <header>
-    <h1>{{ userName }}</h1>
-  </header>
-</section>
+@if (issAddingTask === true) {
+<app-addtask  (cancel)="onCloseDialog()" (addTask)="onAddTask($event)"> 
+
+</app-addtask>
+
+
+}@else {
+
+  <section id="tasks">
+    <header>
+      <h2>{{ userName }}'s Tasks</h2>
+      <menu>
+        <button (click)="onaddTask()">Agregar tarea</button>
+      </menu>
+    </header>
+    <ul>
+  
+      @for (tarea of selectedUserTasks; track tarea.id) {
+          <li>
+              <app-tasks [task]="tarea"  (completed)="onTaskComplete($event)"> </app-tasks>
+          </li>
+      }
+     
+  
+      
+  
+    </ul>
+  </section>
+  
+}
+
