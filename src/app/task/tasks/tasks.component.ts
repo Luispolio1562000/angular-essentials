@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
+import { Component,Input, inject } from '@angular/core';
+import { CardComponent } from "../../shared/card/card.component";
+import { DatePipe } from '@angular/common';
+import { TasksService } from '../task.service';
 
 
 interface Task {
@@ -13,7 +15,7 @@ dueDate: string
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [],
+  imports: [CardComponent, DatePipe],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
@@ -24,13 +26,14 @@ dueDate: string
 
 export class TasksComponent {
 
-  @Input({required:true}) task?: Task;
-  @Output() completed = new EventEmitter <string>;
-
+  @Input({required:true}) task!: Task;
+private tasksService = inject(TasksService)
 
 
   onTaskCompleted(){
-    this.completed.emit(this.task?.id)
+    console.log(this.task);
+    return this.tasksService.removeTask(this.task.id)
+    
   }
 
 }
